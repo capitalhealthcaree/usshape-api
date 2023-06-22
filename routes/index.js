@@ -6,7 +6,7 @@ const contactForm = require("../controllers/contactForm");
 const router = express.Router();
 // for contactForm Routes
 router.get("/", contactForm.welocome);
-router.post("/contact", contactForm.contactForms);
+router.post("/create/contact", contactForm.contactForms);
 router.get("/getcontacts", contactForm.getContactFormsByPagination);
 
 // for Blogs Routes
