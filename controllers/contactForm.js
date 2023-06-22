@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const contactForm = require("../model/contactForm");
+const contactForm = require("../model/ContactForms");
 
 const welocome = (req, res) => {
   res.send("Welcome usshape APIs");
