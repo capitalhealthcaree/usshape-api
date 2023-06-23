@@ -46,7 +46,7 @@ const blogsGetsByPagination = async (req, res) => {
 
 const getBlogBySlug = async (req, res) => {
   try {
-    let slugs = "/" + req.params.category + "/" + req.params.slug;
+    let slugs = "/" + req.params.slug;
     const blog = await Blog.findOne({
       slug: slugs,
     });
