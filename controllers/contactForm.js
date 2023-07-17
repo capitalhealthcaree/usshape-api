@@ -29,7 +29,7 @@ const contactForms = async (req, res) => {
     const mailOptions = {
       from: email,
       to: "webdevelopercapital@gmail.com",
-      subject: "Client Query from USshape",
+      subject: "Query from USSHAPE",
       html: `
 		<html>
 		  <head>
@@ -44,7 +44,7 @@ const contactForms = async (req, res) => {
 			</style>
 		  </head>
 		  <body>
-			<h1>Client's Details</h1>
+			<h1>Details</h1>
 			<p>Name : ${name}</p>
 			<p>Email : ${email}</p>
 			<p>Subject : ${subject}</p>
