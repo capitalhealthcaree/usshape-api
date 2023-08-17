@@ -42,8 +42,10 @@ const applicationForms = async (req, res) => {
     step3Attempt,
 
     signature,
-
     termsConditions,
+
+    billImageUrls,
+    certificateFileUrl,
   } = req.body;
 
   try {
@@ -86,8 +88,10 @@ const applicationForms = async (req, res) => {
       step3Attempt,
 
       signature,
-
       termsConditions,
+
+      billImageUrls,
+      certificateFileUrl,
     });
     // Send an email to the admin
     const transporter = nodemailer.createTransport({
@@ -129,12 +133,10 @@ const applicationForms = async (req, res) => {
         console.log(info);
       }
     });
-    res
-      .status(200)
-      .json({
-        data: formData,
-        mesasge: "Your application submitted successfully.",
-      });
+    res.status(200).json({
+      data: formData,
+      mesasge: "Your application submitted successfully.",
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
