@@ -2,8 +2,17 @@ const express = require("express");
 const blogs = require("../controllers/blogs");
 const news = require("../controllers/news");
 const contactForm = require("../controllers/contactForm");
+const applicationForm = require("../controllers/applicationForm");
 
 const router = express.Router();
+
+// for Application Form Routes
+router.post("/create/applicationForm", applicationForm.applicationForms);
+router.get(
+  "/getApplicationForm",
+  applicationForm.getApplicationFormsByPagination
+);
+
 // for contactForm Routes
 router.get("/", contactForm.welocome);
 router.post("/create/contact", contactForm.contactForms);
