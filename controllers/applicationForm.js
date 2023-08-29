@@ -192,7 +192,7 @@ const applicationForms = async (req, res) => {
               </head>
               <body>
                 <h1>Reservation Confirmation</h1>
-                <p>Hello ${name},</p>
+                <p>Hello ${firstName} ${lastName}</p>
                 <p>Your application has been submitted successfully.</p>
                 <p>Thank you for choosing USSHAPE!</p>
               </body>
