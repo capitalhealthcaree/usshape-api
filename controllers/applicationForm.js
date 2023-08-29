@@ -140,12 +140,9 @@ const applicationForms = async (req, res) => {
                 <p>Nationality/Permanent Residency/Work Permit of any country other than Pakistan: ${nationalityOtherThanPakistan}</p>
                 <p>Have you travelled internationally for personal or professional reasons to attend conferences or to do electives? : ${travelledInternationally}</p>
                 ${
-                  travelledInternationally == "Yes" && (
-                    <p>
-                      If "Yes", Please Provide details{" "}
-                      <b>: {travelledInternationallyDetails}</b>
-                    </p>
-                  )
+                  travelledInternationally === "Yes"
+                    ? `<p>If "Yes", Please Provide details <b>: ${travelledInternationallyDetails}</b></p>`
+                    : ""
                 }
                 <p>Why you should be considered: ${whyWeConsidered}</p>
                 <h1>Educational Info:</h1>
