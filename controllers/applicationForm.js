@@ -149,11 +149,11 @@ const applicationForms = async (req, res) => {
                 <p>Medical College Name: ${collegeName}</p>
                 <p>Graduation Yeare: ${graduationYear}</p>
                 <p>1st Professional MBBS Grade: ${firstYearGrade}</p>
-                <p>Email: ${secondYearGrade}</p>
-                <p>Email: ${thirdYearGrade}</p>
-                <p>Email: ${finalYearGrade}</p>
-                <p>Email: ${otherQualifications}</p>
-                <p>Email: ${awardsHonors}</p>
+                <p>2nd Professional MBBS Grade: ${secondYearGrade}</p>
+                <p>3rd Professional MBBS Grade: ${thirdYearGrade}</p>
+                <p>Final Professional MBBS Grade: ${finalYearGrade}</p>
+                <p>Other Qualifications: ${otherQualifications}</p>
+                <p>Awards & Honors: ${awardsHonors}</p>
                 <h1>USMLE Scores:</h1>
                 <h5>Step 1</h5>
                 <p>Score: ${step1Score}</p>   <p>Attempt: ${step1Attempt}</p>
@@ -163,11 +163,11 @@ const applicationForms = async (req, res) => {
                 <p>Score: ${step2CSScore}</p>   <p>Attempt: ${step2CSAttempt}</p>
                 <h5>Step 3</h5>
                 <p>Score: ${step3Score}</p>   <p>Attempt: ${step3Attempt}</p>
-                <p>Character Certificate: <a href=${certificateFileUrl}></a></p>
+                <p>Character Certificate: <a href=${certificateFileUrl}>Character Certificate</a></p>
                 <p>Last Three Electric Bill:
-                 <a href=${billImageUrls[0]}></a>
-                 <a href=${billImageUrls[1]}></a>
-                 <a href=${billImageUrls[2]}></a>
+                 <a href=${billImageUrls[0]}>Bill-1</a><br/>
+                 <a href=${billImageUrls[1]}>Bill-2</a><br/>
+                 <a href=${billImageUrls[2]}>Bill-3</a><br/>
                  </p>
               </body>
             </html>`,
