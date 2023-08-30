@@ -48,6 +48,16 @@ const applicationForms = async (req, res) => {
     certificateFileUrl,
   } = req.body;
 
+  let counter = 1;
+  // Generate a unique code with sequential numbers
+  function generateUniqueCode(fName, lName) {
+    const formattedCounter = counter.toString().padStart(5, "0"); // Ensure 5 digits
+    counter++; // Increment the counter for the next person
+    return `${fName}-${lName}-${formattedCounter}`;
+  }
+
+  const shareUrl = generateUniqueCode(firstName, lastName);
+
   try {
     const formData = await ApplicationForm.create({
       firstName,
@@ -92,6 +102,8 @@ const applicationForms = async (req, res) => {
 
       billImageUrls,
       certificateFileUrl,
+
+      url: shareUrl,
     });
 
     // Send emails to both admin and candidate
@@ -124,6 +136,7 @@ const applicationForms = async (req, res) => {
               </head>
               <body>
                 <h1>Personal Info:</h1>
+                <a href=${`https://usshape.org/forward-form/${shareUrl}`}}>Shareable URL</a>
                 <p>Name: ${firstName} ${lastName}</p>
                 <p>Email: ${email}</p>
                 <p>PhoneNumber: ${phoneNumber}</p>

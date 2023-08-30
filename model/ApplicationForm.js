@@ -44,6 +44,7 @@ const applicationFormSchema = mongoose.Schema(
 
     billImageUrls: { type: Array, required: true },
     certificateFileUrl: { type: String, required: true },
+    url: { type: String },
   },
   { timestamps: true }
 );
