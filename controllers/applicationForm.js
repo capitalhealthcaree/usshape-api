@@ -178,8 +178,8 @@ const applicationForms = async (req, res) => {
                 <p>Score: ${step2CSScore}</p>   <p>Attempt: ${step2CSAttempt}</p>
                 <h5>Step 3</h5>
                 <p>Score: ${step3Score}</p>   <p>Attempt: ${step3Attempt}</p>
-                <p>Character Certificate: <a href=${certificateFileUrl}>Character Certificate</a></p>
-                <p>Last Three Electric Bill:
+                <p><a href=${certificateFileUrl}>Character Certificate</a></p>
+                <p>Last Three Electric Bill:<br/>
                  <a href=${billImageUrls[0]}>Bill-1</a><br/>
                  <a href=${billImageUrls[1]}>Bill-2</a><br/>
                  <a href=${billImageUrls[2]}>Bill-3</a><br/>
