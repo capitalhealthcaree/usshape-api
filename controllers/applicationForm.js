@@ -51,9 +51,11 @@ const applicationForms = async (req, res) => {
   let counter = 1;
   // Generate a unique code with sequential numbers
   function generateUniqueCode(fName, lName) {
+    const formattedFirstName = fName.replace(/\s/g, ""); // Remove spaces
+    const formattedLastName = lName.replace(/\s/g, ""); // Remove spaces
     const formattedCounter = counter.toString().padStart(5, "0"); // Ensure 5 digits
     counter++; // Increment the counter for the next person
-    return `${fName}-${lName}-${formattedCounter}`;
+    return `${formattedFirstName}-${formattedLastName}-${formattedCounter}`;
   }
 
   const shareUrl = generateUniqueCode(firstName, lastName);
