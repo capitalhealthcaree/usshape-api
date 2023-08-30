@@ -51,8 +51,9 @@ const applicationForms = async (req, res) => {
   let counter = 1;
   // Generate a unique code with sequential numbers
   function generateUniqueCode(fName, lName) {
-    const formattedFirstName = fName.replace(/\s/g, "").toLowerCase(); // Remove spaces and convert to lowercase
-    const formattedLastName = lName.replace(/\s/g, "").toLowerCase(); // Remove spaces and convert to lowercase
+    const formattedFirstName = fName.replace(/\s/g, "-").toLowerCase(); // Replace spaces with hyphens and convert to lowercase
+    const formattedLastName = lName.replace(/\s/g, "-").toLowerCase(); // Replace spaces with hyphens and convert to lowercase
+
     const formattedCounter = counter.toString().padStart(5, "0"); // Ensure 5 digits
     counter++; // Increment the counter for the next person
     return `${formattedFirstName}-${formattedLastName}-${formattedCounter}`;
