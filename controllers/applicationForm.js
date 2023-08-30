@@ -258,4 +258,24 @@ const getApplicationFormsByPagination = async (req, res) => {
   }
 };
 
-module.exports = { applicationForms, getApplicationFormsByPagination };
+// get Application Form By Url
+const getApplicationFormByUrl = async (req, res) => {
+  try {
+    const slug = req.query.url;
+    const form = await ApplicationForm.findOne({ url: slug });
+    if (!form) {
+      return res.status(404).json({ error: "Form not found" });
+    }
+
+    res.status(200).json({ data: form });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  applicationForms,
+  getApplicationFormsByPagination,
+  getApplicationFormByUrl,
+};

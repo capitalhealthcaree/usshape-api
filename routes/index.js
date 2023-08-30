@@ -12,6 +12,10 @@ router.get(
   "/getApplicationForm",
   applicationForm.getApplicationFormsByPagination
 );
+router.get(
+  "/getApplicationFormByUrl",
+  applicationForm.getApplicationFormByUrl
+);
 
 // for contactForm Routes
 router.get("/", contactForm.welocome);
