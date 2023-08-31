@@ -120,6 +120,9 @@ const applicationForms = async (req, res) => {
       },
     });
 
+    const mainUrl = "https://usshape.org/share-form/";
+    const completeShareUrl = `${mainUrl}${shareUrl}`;
+
     const mailOptionsAdmin = {
       from: "contact@usshape.org",
       to: "contact@usshape.org",
@@ -139,7 +142,7 @@ const applicationForms = async (req, res) => {
               </head>
               <body>
                 <h1>Personal Info:</h1>
-                <a href=${`https://usshape.org/share-form/${shareUrl}`}}>Shareable URL</a>
+                <a href=${`https://usshape.org/share-form/${completeShareUrl}`}}>Shareable URL</a>
                 <p>Name: ${firstName} ${lastName}</p>
                 <p>Email: ${email}</p>
                 <p>PhoneNumber: ${phoneNumber}</p>
