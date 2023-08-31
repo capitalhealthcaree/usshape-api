@@ -240,21 +240,11 @@ const applicationForms = async (req, res) => {
 };
 // get contact form by pagination
 const getApplicationFormsByPagination = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 21;
-  const startIndex = (page - 1) * limit;
-
   try {
-    const totalDocs = await ApplicationForm.countDocuments();
-    const data = await ApplicationForm.find()
-      .sort({ createdAt: -1 })
-      .skip(startIndex)
-      .limit(limit);
+    const data = await ApplicationForm.find().sort({ createdAt: -1 });
 
     res.status(200).json({
-      currentPage: page,
-      totalPages: Math.ceil(totalDocs / limit),
-      data,
+      data: data,
     });
   } catch (err) {
     res.status(500).json({ err: "Encountered an error" });
