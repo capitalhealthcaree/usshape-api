@@ -240,13 +240,16 @@ const applicationForms = async (req, res) => {
 };
 // get contact form by pagination
 const getApplicationFormsByPagination = async (req, res) => {
-  const page = parseInt(req.query.page) || 1; // default to first page if page is not specified
-  const limit = parseInt(req.query.limit) || 21; // default to 10 documents per page if limit is not specified
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 21;
   const startIndex = (page - 1) * limit;
 
   try {
     const totalDocs = await ApplicationForm.countDocuments();
-    const data = await ApplicationForm.find().skip(startIndex).limit(limit);
+    const data = await ApplicationForm.find()
+      .sort({ createdAt: -1 })
+      .skip(startIndex)
+      .limit(limit);
 
     res.status(200).json({
       currentPage: page,
@@ -254,7 +257,7 @@ const getApplicationFormsByPagination = async (req, res) => {
       data,
     });
   } catch (err) {
-    res.status(500).json({ err: "getting some error" });
+    res.status(500).json({ err: "Encountered an error" });
   }
 };
 
