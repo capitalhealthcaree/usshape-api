@@ -48,15 +48,15 @@ const applicationForms = async (req, res) => {
     certificateFileUrl,
   } = req.body;
 
-  let counter = 1;
   // Generate a unique code with sequential numbers
   function generateUniqueCode(fName, lName) {
     const formattedFirstName = fName.replace(/\s/g, "-").toLowerCase(); // Replace spaces with hyphens and convert to lowercase
     const formattedLastName = lName.replace(/\s/g, "-").toLowerCase(); // Replace spaces with hyphens and convert to lowercase
 
-    const formattedCounter = counter.toString().padStart(5, "0"); // Ensure 5 digits
-    counter++; // Increment the counter for the next person
-    return `${formattedFirstName}-${formattedLastName}-${formattedCounter}`;
+    // Generate a random number between 10000 and 99999 (5-digit range)
+    const random5DigitNumber = Math.floor(Math.random() * 90000) + 10000;
+
+    return `${formattedFirstName}-${formattedLastName}-${random5DigitNumber}`;
   }
 
   const shareUrl = generateUniqueCode(firstName, lastName);
@@ -139,7 +139,7 @@ const applicationForms = async (req, res) => {
               </head>
               <body>
                 <h1>Personal Info:</h1>
-                <a href=${`https://usshape.org/forward-form/${shareUrl}`}}>Shareable URL</a>
+                <a href=${`https://usshape.org/share-form/${shareUrl}`}}>Shareable URL</a>
                 <p>Name: ${firstName} ${lastName}</p>
                 <p>Email: ${email}</p>
                 <p>PhoneNumber: ${phoneNumber}</p>
@@ -215,21 +215,25 @@ const applicationForms = async (req, res) => {
             </html>`,
     };
 
-    transporter.sendMail(mailOptionsAdmin, (err, info) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(info);
-      }
-    });
+    try {
+      await transporter.sendMail(mailOptionsAdmin);
+      console.log("Admin confirmation email sent successfully");
+    } catch (err) {
+      console.error("Error sending admin confirmation email:", err);
+      return res.status(500).json({
+        message: "Error sending admin confirmation email",
+      });
+    }
 
-    transporter.sendMail(mailOptionsCandidate, (err, info) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(info);
-      }
-    });
+    try {
+      await transporter.sendMail(mailOptionsCandidate);
+      console.log("User confirmation email sent successfully");
+    } catch (err) {
+      console.error("Error sending admin confirmation email:", err);
+      return res.status(500).json({
+        message: "Error sending admin confirmation email",
+      });
+    }
     res.status(200).json({
       data: formData,
       mesasge: "Your application submitted successfully.",
