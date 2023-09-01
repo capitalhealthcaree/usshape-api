@@ -17,19 +17,22 @@ const contactForms = async (req, res) => {
       subject,
       message,
     });
-    // Send an email to the admin
+
+    // Send emails to both admin and candidate
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.office365.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: "webdevelopercapital@gmail.com",
-        pass: "uvgqevylpebrtvgj",
+        user: "contact@usshape.org",
+        pass: "786@USshape~",
       },
     });
 
-    const mailOptions = {
+    const mailOptionAdmin = {
       from: email,
-      to: "webdevelopercapital@gmail.com",
-      subject: "Query from USSHAPE",
+      to: "contact@usshape.org",
+      subject: `${subject}`,
       html: `
 		<html>
 		  <head>
@@ -47,19 +50,57 @@ const contactForms = async (req, res) => {
 			<h1>Details</h1>
 			<p>Name : ${name}</p>
 			<p>Email : ${email}</p>
-			<p>Subject : ${subject}</p>
 			<p>Contact Number : ${phone}</p>
 			<p>Message : ${message}</p>
 		  </body>
 		</html>`,
     };
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(info);
-      }
-    });
+    const mailOptionsCandidate = {
+      from: "contact@usshape.org",
+      to: email,
+      subject: "Query confirmation from USSHAPE",
+      html: `
+            <html>
+              <head>
+                <style>
+                  h1 {
+                    color: #003062;
+                  }
+                  p {
+                    font-size: 18px;
+                    line-height: 1.5;
+                  }
+                </style>
+              </head>
+              <body>
+                <h1>Reservation Confirmation</h1>
+                <p>Hello ${name}</p>
+                <p>Your Query has been submitted successfully.</p>
+                <p>Thank you for choosing USSHAPE!</p>
+              </body>
+            </html>`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptionAdmin);
+      console.log("Admin confirmation email sent successfully");
+    } catch (err) {
+      console.error("Error sending admin confirmation email:", err);
+      return res.status(500).json({
+        message: "Error sending admin confirmation email",
+      });
+    }
+
+    try {
+      await transporter.sendMail(mailOptionsCandidate);
+      console.log("User confirmation email sent successfully");
+    } catch (err) {
+      console.error("Error sending admin confirmation email:", err);
+      return res.status(500).json({
+        message: "Error sending admin confirmation email",
+      });
+    }
+
     res
       .status(200)
       .json({ data: formData, mesasge: "Your query sent successfully" });

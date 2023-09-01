@@ -124,7 +124,7 @@ const applicationForms = async (req, res) => {
     const completeShareUrl = `${mainUrl}${shareUrl}`;
 
     const mailOptionsAdmin = {
-      from: "contact@usshape.org",
+      from: email,
       to: "contact@usshape.org",
       subject: "NBLTLMG Alert from USSHAPE",
       html: `
