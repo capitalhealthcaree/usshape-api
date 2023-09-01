@@ -32,7 +32,7 @@ const contactForms = async (req, res) => {
     const mailOptionAdmin = {
       from: email,
       to: "contact@usshape.org",
-      subject: `${subject}`,
+      subject: subject,
       html: `
 		<html>
 		  <head>
@@ -55,6 +55,7 @@ const contactForms = async (req, res) => {
 		  </body>
 		</html>`,
     };
+
     const mailOptionsCandidate = {
       from: "contact@usshape.org",
       to: email,
@@ -73,13 +74,13 @@ const contactForms = async (req, res) => {
                 </style>
               </head>
               <body>
-                <h1>Reservation Confirmation</h1>
                 <p>Hello ${name}</p>
-                <p>Your Query has been submitted successfully.</p>
+                <p>Your Query has been submitted successfully</p>
                 <p>Thank you for choosing USSHAPE!</p>
               </body>
             </html>`,
     };
+
     transporter.sendMail(mailOptionAdmin, (err, info) => {
       if (err) {
         console.error(err);
