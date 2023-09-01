@@ -216,7 +216,7 @@ const applicationForms = async (req, res) => {
               <a href=${billImageUrls[0]}>Bill-1</a><br/>
               <a href=${billImageUrls[1]}>Bill-2</a><br/>
               <a href=${billImageUrls[2]}>Bill-3</a><br/>
-
+              <p><b>Electronic Signature :</b> ${signature}</p>
               </body>
             </html>`,
     };
