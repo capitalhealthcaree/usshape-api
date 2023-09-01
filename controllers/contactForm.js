@@ -87,7 +87,7 @@ const contactForms = async (req, res) => {
     } catch (err) {
       console.error("Error sending admin confirmation email:", err);
       return res.status(500).json({
-        message: "Error sending admin confirmation email",
+        message: "Error sending admin confirmation emailss",
       });
     }
 
@@ -97,7 +97,7 @@ const contactForms = async (req, res) => {
     } catch (err) {
       console.error("Error sending admin confirmation email:", err);
       return res.status(500).json({
-        message: "Error sending admin confirmation email",
+        message: "Error sending admin confirmation emailss",
       });
     }
 
