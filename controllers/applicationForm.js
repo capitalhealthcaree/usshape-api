@@ -131,63 +131,108 @@ const applicationForms = async (req, res) => {
             <html>
               <head>
                 <style>
-                  h1 {
+                  h2 {
                     color: #003062;
                   }
                   p {
                     font-size: 18px;
                     line-height: 1.5;
                   }
+                  .custom-container {
+                    display: flex;
+                    align-content: start;
+                    flex-wrap: wrap;
+                    padding: 1px;
+                  }
+                  
+                  .step, .attempt {
+                    margin-right: 10px; /* Adjust this value to control the spacing between elements */
+                  }
+                  
+                  .divider {
+                    margin: 0 10px; /* Adjust this value to control the spacing around the divider */
+                  }
                 </style>
               </head>
               <body>
-                <h1>Personal Info:</h1>
+                <h2>Personal Info:</h2>
                 <a href=${completeShareUrl}>Shareable URL</a>
-                <p>Name: ${firstName} ${lastName}</p>
-                <p>Email: ${email}</p>
-                <p>PhoneNumber: ${phoneNumber}</p>
-                <p>Date of Birth: ${dob}</p>
-                <p>Permanent Address: ${permanentAddress}</p>
-                <p>Temporary Address: ${temporaryAddress}</p>
-                <p>Father Name: ${fatherName}</p>
-                <p>Father Occupation: ${fatherOccupation}</p>
-                <p>Father's Income: ${fatherIncome}</p>
-                <p>Passport Number: ${passportNumber}</p>
-                <p>Bank Account Number: ${bankAccountNumber}</p>
-                <p>Swift Code: ${swiftCode}</p>
-                <p>Have you applied for a loan from any other organization such as your medical college, alumni, or any physician working in the USA or Pakistan?: ${appliedToOtherOrganization}</p>
-                <p>Nationality/Permanent Residency/Work Permit of any country other than Pakistan: ${nationalityOtherThanPakistan}</p>
-                <p>Have you travelled internationally for personal or professional reasons to attend conferences or to do electives? : ${travelledInternationally}</p>
+                <p><b>Name :</b> ${firstName} ${lastName}</p>
+                <p><b>Email :</b> ${email}</p>
+                <p><b>PhoneNumber :</b> ${phoneNumber}</p>
+                <p><b>Date of Birth :</b> ${dob}</p>
+                <p><b>Permanent Address :</b> ${permanentAddress}</p>
+                <p><b>Temporary Address :</b> ${temporaryAddress}</p>
+                <p><b>Father Name :</b> ${fatherName}</p>
+                <p><b>Father Occupation :</b> ${fatherOccupation}</p>
+                <p><b>Father's Income :</b> ${fatherIncome}</p>
+                <p><b>Passport Number :</b> ${passportNumber}</p>
+                <p><b>Bank Acc. Number :</b> ${bankAccountNumber}</p>
+                <p><b>Swift Code :</b> ${swiftCode}</p>
+                <p>Have you applied for a loan from any other organization such as your medical college, alumni, or any physician working in the USA or Pakistan? :<b>${appliedToOtherOrganization}</b></p>
+                <p>Nationality/Permanent Residency/Work Permit of any country other than Pakistan :<b>${nationalityOtherThanPakistan}</b></p>
+                <p>Have you travelled internationally for personal or professional reasons to attend conferences or to do electives? :<b>${travelledInternationally}</b></p>
                 ${
                   travelledInternationally === "Yes"
-                    ? `<p>If "Yes", Please Provide details <b>: ${travelledInternationallyDetails}</b></p>`
+                    ? `<p>If "Yes", Please Provide details : <b>${travelledInternationallyDetails}</b></p>`
                     : ""
                 }
-                <p>Why you should be considered: ${whyWeConsidered}</p>
-                <h1>Educational Info:</h1>
-                <p>Medical College Name: ${collegeName}</p>
-                <p>Graduation Yeare: ${graduationYear}</p>
-                <p>1st Professional MBBS Grade: ${firstYearGrade}</p>
-                <p>2nd Professional MBBS Grade: ${secondYearGrade}</p>
-                <p>3rd Professional MBBS Grade: ${thirdYearGrade}</p>
-                <p>Final Professional MBBS Grade: ${finalYearGrade}</p>
-                <p>Other Qualifications: ${otherQualifications}</p>
-                <p>Awards & Honors: ${awardsHonors}</p>
-                <h1>USMLE Scores:</h1>
-                <h5>Step 1</h5>
-                <p>Score: ${step1Score}</p>   <p>Attempt: ${step1Attempt}</p>
-                <h5>Step 2 - CK</h5>
-                <p>Score: ${step2CKScore}</p>   <p>Attempt: ${step2CKAttempt}</p>
-                <h5>Step 2 - CS</h5>
-                <p>Score: ${step2CSScore}</p>   <p>Attempt: ${step2CSAttempt}</p>
-                <h5>Step 3</h5>
-                <p>Score: ${step3Score}</p>   <p>Attempt: ${step3Attempt}</p>
-                <p><a href=${certificateFileUrl}>Character Certificate</a></p>
-                <p>Last Three Electric Bill:<br/>
-                 <a href=${billImageUrls[0]}>Bill-1</a><br/>
-                 <a href=${billImageUrls[1]}>Bill-2</a><br/>
-                 <a href=${billImageUrls[2]}>Bill-3</a><br/>
-                 </p>
+                <p><b>Why you should be considered :</b><br/>${whyWeConsidered}</p>
+                <h2>Educational Info:</h2>
+                <p><b>Medical College Name :</b> ${collegeName}</p>
+                <p><b>Graduation Yeare :</b> ${graduationYear}</p>
+                <p><b>1st Professional MBBS Grade :</b> ${firstYearGrade}</p>
+                <p><b>2nd Professional MBBS Grade :</b> ${secondYearGrade}</p>
+                <p><b>3rd Professional MBBS Grade :</b> ${thirdYearGrade}</p>
+                <p><b>Final Professional MBBS Grade :</b> ${finalYearGrade}</p>
+                <p><b>Other Qualifications :</b><br/> ${otherQualifications}</p>
+                <p><b>Awards & Honors :</b><br/> ${awardsHonors}</p>
+
+                <h2>USMLE Scores:</h2>
+                <div class="custom-container">
+                  <div class="step"><b>Step 1 :</b> Score <b>: ${
+                    item.step1Score
+                  }</b></div>
+                  <div class="divider">|</div>
+                  <div class="attempt">Attempt <b>: ${
+                    item.step1Attempt
+                  }</b></div>
+                </div>
+
+                <div class="custom-container">
+                  <div class="step"><b>Step 2 CK :</b> Score <b>: ${
+                    item.step2CKScore
+                  }</b></div>
+                  <div class="divider">|</div>
+                  <div class="attempt">Attempt <b>: ${
+                    item.step2CKAttempt
+                  }</b></div>
+                </div>
+
+                <div class="custom-container">
+                  <div class="step"><b>Step 2 CS :</b> Score <b>: ${
+                    item.step2CSScore
+                  }</b></div>
+                  <div class="divider">|</div>
+                  <div class="attempt">Attempt <b>: ${
+                    item.step2CSAttempt
+                  }</b></div>
+                </div>
+
+                <div class="custom-container">
+                <div class="step"><b>Step 3 :</b> Score <b>: ${
+                  item.step3Score
+                }</b></div>
+                <div class="divider">|</div>
+                <div class="attempt">Attempt <b>: ${
+                  item.step3Attempt
+                }</b></div></div>
+                
+              <a href=${certificateFileUrl}>Character Certificate</a>
+              <a href=${billImageUrls[0]}>Bill-1</a><br/>
+              <a href=${billImageUrls[1]}>Bill-2</a><br/>
+              <a href=${billImageUrls[2]}>Bill-3</a><br/>
+
               </body>
             </html>`,
     };
