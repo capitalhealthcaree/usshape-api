@@ -150,12 +150,12 @@ const applicationForms = async (req, res) => {
                   }
                   
                   .divider {
-                    margin: 0 10px; /* Adjust this value to control the spacing around the divider */
+                    margin: 0 5px; /* Adjust this value to control the spacing around the divider */
                   }
                 </style>
               </head>
               <body>
-                <h2>Personal Info:</h2>
+                <h2><u>Personal Info:</u></h2>
                 <a href=${completeShareUrl}>Shareable URL</a>
                 <p><b>Name :</b> ${firstName} ${lastName}</p>
                 <p><b>Email :</b> ${email}</p>
@@ -174,11 +174,11 @@ const applicationForms = async (req, res) => {
                 <p>Have you travelled internationally for personal or professional reasons to attend conferences or to do electives? :<b>${travelledInternationally}</b></p>
                 ${
                   travelledInternationally === "Yes"
-                    ? `<p>If "Yes", Please Provide details : <b>${travelledInternationallyDetails}</b></p>`
+                    ? `<p><b>If "Yes", Please Provide details :</b> ${travelledInternationallyDetails}</p>`
                     : ""
                 }
                 <p><b>Why you should be considered :</b><br/>${whyWeConsidered}</p>
-                <h2>Educational Info:</h2>
+                <h2><u>Educational Info:</u></h2>
                 <p><b>Medical College Name :</b> ${collegeName}</p>
                 <p><b>Graduation Yeare :</b> ${graduationYear}</p>
                 <p><b>1st Professional MBBS Grade :</b> ${firstYearGrade}</p>
@@ -188,7 +188,7 @@ const applicationForms = async (req, res) => {
                 <p><b>Other Qualifications :</b><br/> ${otherQualifications}</p>
                 <p><b>Awards & Honors :</b><br/> ${awardsHonors}</p>
 
-                <h2>USMLE Scores:</h2>
+                <h2><u>USMLE Scores:<u></h2>
                 <div class="custom-container">
                   <div class="step"><b>Step 1 :</b> Score <b>: ${step1Score}</b></div>
                   <div class="divider">|</div>
@@ -212,7 +212,7 @@ const applicationForms = async (req, res) => {
                 <div class="divider">|</div>
                 <div class="attempt">Attempt <b>: ${step3Attempt}</b></div></div>
                 
-              <a href=${certificateFileUrl}>Character Certificate</a>
+              <a href=${certificateFileUrl}>Character Certificate</a><br/>
               <a href=${billImageUrls[0]}>Bill-1</a><br/>
               <a href=${billImageUrls[1]}>Bill-2</a><br/>
               <a href=${billImageUrls[2]}>Bill-3</a><br/>
