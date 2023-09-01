@@ -30,7 +30,7 @@ const contactForms = async (req, res) => {
     });
 
     const mailOptionAdmin = {
-      from: email,
+      from: "contact@usshape.org",
       to: "contact@usshape.org",
       subject: subject,
       html: `<html>
