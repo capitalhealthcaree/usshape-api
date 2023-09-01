@@ -190,43 +190,27 @@ const applicationForms = async (req, res) => {
 
                 <h2>USMLE Scores:</h2>
                 <div class="custom-container">
-                  <div class="step"><b>Step 1 :</b> Score <b>: ${
-                    item.step1Score
-                  }</b></div>
+                  <div class="step"><b>Step 1 :</b> Score <b>: ${step1Score}</b></div>
                   <div class="divider">|</div>
-                  <div class="attempt">Attempt <b>: ${
-                    item.step1Attempt
-                  }</b></div>
+                  <div class="attempt">Attempt <b>: ${step1Attempt}</b></div>
                 </div>
 
                 <div class="custom-container">
-                  <div class="step"><b>Step 2 CK :</b> Score <b>: ${
-                    item.step2CKScore
-                  }</b></div>
+                  <div class="step"><b>Step 2 CK :</b> Score <b>: ${step2CKScore}</b></div>
                   <div class="divider">|</div>
-                  <div class="attempt">Attempt <b>: ${
-                    item.step2CKAttempt
-                  }</b></div>
+                  <div class="attempt">Attempt <b>: ${step2CKAttempt}</b></div>
                 </div>
 
                 <div class="custom-container">
-                  <div class="step"><b>Step 2 CS :</b> Score <b>: ${
-                    item.step2CSScore
-                  }</b></div>
+                  <div class="step"><b>Step 2 CS :</b> Score <b>: ${step2CSScore}</b></div>
                   <div class="divider">|</div>
-                  <div class="attempt">Attempt <b>: ${
-                    item.step2CSAttempt
-                  }</b></div>
+                  <div class="attempt">Attempt <b>: ${step2CSAttempt}</b></div>
                 </div>
 
                 <div class="custom-container">
-                <div class="step"><b>Step 3 :</b> Score <b>: ${
-                  item.step3Score
-                }</b></div>
+                <div class="step"><b>Step 3 :</b> Score <b>: ${step3Score}</b></div>
                 <div class="divider">|</div>
-                <div class="attempt">Attempt <b>: ${
-                  item.step3Attempt
-                }</b></div></div>
+                <div class="attempt">Attempt <b>: ${step3Attempt}</b></div></div>
                 
               <a href=${certificateFileUrl}>Character Certificate</a>
               <a href=${billImageUrls[0]}>Bill-1</a><br/>
