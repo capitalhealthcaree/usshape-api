@@ -80,26 +80,21 @@ const contactForms = async (req, res) => {
               </body>
             </html>`,
     };
+    transporter.sendMail(mailOptionAdmin, (err, info) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(info);
+      }
+    });
 
-    try {
-      await transporter.sendMail(mailOptionAdmin);
-      console.log("Admin confirmation email sent successfully");
-    } catch (err) {
-      console.error("Error sending admin confirmation email:", err);
-      return res.status(500).json({
-        message: "Error sending admin confirmation emailss",
-      });
-    }
-
-    try {
-      await transporter.sendMail(mailOptionsCandidate);
-      console.log("User confirmation email sent successfully");
-    } catch (err) {
-      console.error("Error sending admin confirmation email:", err);
-      return res.status(500).json({
-        message: "Error sending admin confirmation emailss",
-      });
-    }
+    transporter.sendMail(mailOptionsCandidate, (err, info) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(info);
+      }
+    });
 
     res
       .status(200)
