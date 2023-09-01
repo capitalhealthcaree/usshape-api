@@ -188,7 +188,7 @@ const applicationForms = async (req, res) => {
                 <p><b>Other Qualifications :</b><br/> ${otherQualifications}</p>
                 <p><b>Awards & Honors :</b><br/> ${awardsHonors}</p>
 
-                <h2><u>USMLE Scores:<u></h2>
+                <h2><u>USMLE Scores:</u></h2>
                 <div class="custom-container">
                   <div class="step"><b>Step 1 :</b> Score <b>: ${step1Score}</b></div>
                   <div class="divider">|</div>
