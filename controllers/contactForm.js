@@ -33,8 +33,7 @@ const contactForms = async (req, res) => {
       from: email,
       to: "contact@usshape.org",
       subject: subject,
-      html: `
-		<html>
+      html: `<html>
 		  <head>
 			<style>
 			  h1 {
@@ -60,8 +59,7 @@ const contactForms = async (req, res) => {
       from: "contact@usshape.org",
       to: email,
       subject: "Query confirmation from USSHAPE",
-      html: `
-            <html>
+      html: `<html>
               <head>
                 <style>
                   h1 {
