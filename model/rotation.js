@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const rotationSchema = mongoose.Schema(
+const externshipPaypalSchema = mongoose.Schema(
   {
     name: { type: String },
     email: { type: String },
@@ -10,5 +10,5 @@ const rotationSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-const Rotation = mongoose.model("Rotation", rotationSchema);
-module.exports = Rotation;
+const ExternshipPaypal = mongoose.model("ExternshipPaypal", externshipPaypalSchema);
+module.exports = ExternshipPaypal;
