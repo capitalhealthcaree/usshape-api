@@ -16,7 +16,7 @@ router.get(
 router.get("/getApplicationFormByUrl", applicationForm.getApplicationFormByUrl);
 
 // for Rotation Reservation Form Routes
-router.post("/create/rotationForm", rotationForm.RotationForms);
+router.post("/create/rotationFormWithPaypal", rotationForm.RotationForms);
 
 // for contactForm Routes
 router.get("/", contactForm.welocome);
