@@ -3,19 +3,20 @@ const blogs = require("../controllers/blogs");
 const news = require("../controllers/news");
 const contactForm = require("../controllers/contactForm");
 const applicationForm = require("../controllers/applicationForm");
+const rotationForm = require("../controllers/rotation");
 
 const router = express.Router();
 
-// for Application Form Routes
+// for Nagy Loan Application Form Routes
 router.post("/create/applicationForm", applicationForm.applicationForms);
 router.get(
   "/getApplicationForm",
   applicationForm.getApplicationFormsByPagination
 );
-router.get(
-  "/getApplicationFormByUrl",
-  applicationForm.getApplicationFormByUrl
-);
+router.get("/getApplicationFormByUrl", applicationForm.getApplicationFormByUrl);
+
+// for Rotation Reservation Form Routes
+router.post("/create/rotationForm", rotationForm.RotationForms);
 
 // for contactForm Routes
 router.get("/", contactForm.welocome);
