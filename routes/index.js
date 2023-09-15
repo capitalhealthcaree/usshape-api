@@ -4,6 +4,7 @@ const news = require("../controllers/news");
 const contactForm = require("../controllers/contactForm");
 const applicationForm = require("../controllers/applicationForm");
 const rotationForm = require("../controllers/rotation");
+const paypalPayment = require("../controllers/paypalPayment");
 
 const router = express.Router();
 
@@ -14,6 +15,9 @@ router.get(
   applicationForm.getApplicationFormsByPagination
 );
 router.get("/getApplicationFormByUrl", applicationForm.getApplicationFormByUrl);
+
+// for Payment with Paypal Routes
+router.post("/create/paymentWithPaypal", paypalPayment.PaypalPayments);
 
 // for Rotation Reservation Form Routes
 router.post("/create/rotationFormWithPaypal", rotationForm.RotationForms);
