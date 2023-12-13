@@ -5,7 +5,7 @@ const PaypalPayments = async (req, res) => {
 
   try {
     const paymentData = await PaypalPayment.create({
-      oreder: order,
+      order: order,
       data: data,
     });
 
