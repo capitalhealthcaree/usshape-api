@@ -8,6 +8,13 @@ const paypalPayment = require("../controllers/paypalPayment");
 
 const router = express.Router();
 
+//Welcome
+router.get("/", contactForm.welocome);
+
+// for contactForm Routes
+router.post("/create/contact", contactForm.contactForms);
+router.get("/getcontacts", contactForm.getContactFormsByPagination);
+
 // for Nagy Loan Application Form Routes
 router.post("/create/applicationForm", applicationForm.applicationForms);
 router.get(
@@ -21,11 +28,6 @@ router.post("/create/paymentWithPaypal", paypalPayment.PaypalPayments);
 
 // for Rotation Reservation Form Routes
 router.post("/create/rotationFormWithPaypal", rotationForm.RotationForms);
-
-// for contactForm Routes
-router.get("/", contactForm.welocome);
-router.post("/create/contact", contactForm.contactForms);
-router.get("/getcontacts", contactForm.getContactFormsByPagination);
 
 // for Blogs Routes
 router.get("/blog/getAll", blogs.getAllBlogs);
