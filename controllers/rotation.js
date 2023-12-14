@@ -98,7 +98,7 @@ const RotationForms = async (req, res) => {
                 <p>Name: ${name}</p>
                 <p>Email: ${email}</p>
                 <p>Reserved Rotation: ${reservation}</p>
-                <p>Merchant Transaction ID: ${merchantTransactionId}</p>
+                <p>Merchant/Seller Transaction ID: ${merchantTransactionId}</p>
               </body>
             </html>`,
     };
@@ -125,6 +125,7 @@ const RotationForms = async (req, res) => {
                 <p>Hello ${name},</p>
                 <p>Your rotation reservation has been successfully confirmed.</p>
                 <p>Reservation: ${reservation}</p>
+                <p>Merchant/Seller Transaction ID: ${merchantTransactionId}</p>
                 <p>Thank you for choosing USSHAPE!</p>
               </body>
             </html>`,
