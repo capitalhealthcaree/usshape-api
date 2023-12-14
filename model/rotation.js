@@ -7,8 +7,12 @@ const externshipPaypalSchema = mongoose.Schema(
     termsConditions: { type: Boolean },
     reservation: { type: String },
     url: { type: String },
+    merchantTransactionId: { type: String },
   },
   { timestamps: true }
 );
-const ExternshipPaypal = mongoose.model("ExternshipPaypal", externshipPaypalSchema);
+const ExternshipPaypal = mongoose.model(
+  "ExternshipPaypal",
+  externshipPaypalSchema
+);
 module.exports = ExternshipPaypal;
