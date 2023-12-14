@@ -174,4 +174,22 @@ const GetRotationBySlug = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-module.exports = { RotationForms, GetRotationBySlug };
+
+// get reserved  rotations
+const GetReservedRotation = async (req, res) => {
+  try {
+    const data = await Rotation.find();
+
+    if (data) {
+      // Extract reservation Date from the data and ignore other fields
+      const reservationList = data.map((item) => item.reservation);
+      res.status(200).json({ reservationList });
+    } else {
+      res.status(500).json({ err: "Encountered an error while fetching data" });
+    }
+  } catch (error) {
+    res.status(500).json({ err: "An error occurred", error });
+  }
+};
+
+module.exports = { RotationForms, GetRotationBySlug, GetReservedRotation };
