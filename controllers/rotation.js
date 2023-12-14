@@ -17,6 +17,17 @@ const RotationForms = async (req, res) => {
       });
     }
 
+    // Check if the email is already in the database
+    const existingRotationPayment = await Rotation.findOne({
+      merchantTransactionId,
+    });
+    if (existingRotationPayment) {
+      // existingRotationPayment  already reserved
+      return res.status(400).json({
+        message: "Merchant/Seller transaction ID already reserved.",
+      });
+    }
+
     // Check Payment is receieved or not
     const isPaymentReceieved = await PaypalPayment.findOne({
       "order.0.purchase_units.0.payments.captures.0.id": merchantTransactionId,
