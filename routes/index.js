@@ -28,6 +28,7 @@ router.post("/create/paymentWithPaypal", paypalPayment.PaypalPayments);
 
 // for Rotation Reservation Form Routes
 router.post("/create/rotationFormWithPaypal", rotationForm.RotationForms);
+router.post("/personsrotation/getByName", rotationForm.GetRotationBySlug);
 
 // for Blogs Routes
 router.get("/blog/getAll", blogs.getAllBlogs);

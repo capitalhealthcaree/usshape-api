@@ -148,4 +148,19 @@ const RotationForms = async (req, res) => {
   }
 };
 
-module.exports = { RotationForms };
+// get contact form by pagination
+const GetRotationBySlug = async (req, res) => {
+  try {
+    const slug = req.query.url;
+    const form = await Rotation.findOne({ url: slug });
+    if (!form) {
+      return res.status(404).json({ error: "Form not found" });
+    }
+
+    res.status(200).json({ data: form });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+module.exports = { RotationForms, GetRotationBySlug };
