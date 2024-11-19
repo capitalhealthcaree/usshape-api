@@ -63,6 +63,9 @@ const applicationForms = async (req, res) => {
 
   const shareUrl = generateUniqueCode(firstName, lastName);
 
+  const mainUrl = "https://usshape.org/share-form/";
+  const completeShareUrl = `${mainUrl}${shareUrl}`;
+
   try {
     const formData = await ApplicationForm.create({
       firstName,
@@ -331,8 +334,7 @@ const applicationForms = async (req, res) => {
       },
     });
 
-    const mainUrl = "https://usshape.org/share-form/";
-    const completeShareUrl = `${mainUrl}${shareUrl}`;
+
 
     const mailOptionsAdmin = {
       from: "contact@usshape.org",
