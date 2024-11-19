@@ -111,25 +111,67 @@ const applicationForms = async (req, res) => {
       url: shareUrl,
     });
 
-    // Generate the PDF
+    // // Generate the PDF
+    // const generatePdfBuffer = async (data) => {
+    //   return new Promise((resolve, reject) => {
+    //     const doc = new PDFDocument();
+    //     const chunks = [];
+
+    //     doc.on("data", (chunk) => chunks.push(chunk));
+    //     doc.on("end", () => resolve(Buffer.concat(chunks)));
+    //     doc.on("error", (err) => reject(err));
+
+    //     doc.fontSize(18).text("Application Form", { align: "center" });
+    //     doc.moveDown();
+    //     doc.fontSize(12).text(`Name: ${data.firstName} ${data.lastName}`);
+    //     doc.text(`Email: ${data.email}`);
+    //     doc.text(`Phone: ${data.phoneNumber}`);
+    //     // Add more fields as required...
+    //     doc.end();
+    //   });
+    // };
+    
     const generatePdfBuffer = async (data) => {
       return new Promise((resolve, reject) => {
-        const doc = new PDFDocument();
+        const doc = new PDFDocument({ margin: 30 }); // Add margin for better layout
         const chunks = [];
-
+    
         doc.on("data", (chunk) => chunks.push(chunk));
         doc.on("end", () => resolve(Buffer.concat(chunks)));
         doc.on("error", (err) => reject(err));
-
+    
+        // Title
         doc.fontSize(18).text("Application Form", { align: "center" });
         doc.moveDown();
-        doc.fontSize(12).text(`Name: ${data.firstName} ${data.lastName}`);
+    
+        // Section Header
+        doc.fontSize(14).fillColor("#003062").text("Personal Information", { underline: true });
+        doc.moveDown(0.5);
+    
+        // Content
+        doc.fontSize(12).fillColor("black").text(`Name: ${data.firstName} ${data.lastName}`);
         doc.text(`Email: ${data.email}`);
         doc.text(`Phone: ${data.phoneNumber}`);
-        // Add more fields as required...
+        doc.text(`Date of Birth: ${data.dob}`);
+        doc.moveDown();
+    
+        // Draw a line
+        doc.moveTo(doc.x, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+    
+        // Section Header
+        doc.fontSize(14).fillColor("#003062").text("Educational Information", { underline: true });
+        doc.moveDown(0.5);
+    
+        doc.fontSize(12).fillColor("black").text(`College Name: ${data.collegeName}`);
+        doc.text(`Graduation Year: ${data.graduationYear}`);
+        doc.text(`1st Year Grade: ${data.firstYearGrade}`);
+        doc.moveDown();
+    
+        // Finalize the PDF
         doc.end();
       });
     };
+    
 
     const pdfBuffer = await generatePdfBuffer({
       firstName,
