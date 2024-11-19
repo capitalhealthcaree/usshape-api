@@ -339,7 +339,7 @@
 
 const PDFDocument = require('pdfkit');
 const nodemailer = require('nodemailer');
-const ApplicationForm = require('./models/ApplicationForm'); // Update this import based on your project structure
+const ApplicationForm = require("../model/ApplicationForm");
 
 const applicationForms = async (req, res) => {
   const {
