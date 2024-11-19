@@ -114,26 +114,6 @@ const applicationForms = async (req, res) => {
       url: shareUrl,
     });
 
-    // // Generate the PDF
-    // const generatePdfBuffer = async (data) => {
-    //   return new Promise((resolve, reject) => {
-    //     const doc = new PDFDocument();
-    //     const chunks = [];
-
-    //     doc.on("data", (chunk) => chunks.push(chunk));
-    //     doc.on("end", () => resolve(Buffer.concat(chunks)));
-    //     doc.on("error", (err) => reject(err));
-
-    //     doc.fontSize(18).text("Application Form", { align: "center" });
-    //     doc.moveDown();
-    //     doc.fontSize(12).text(`Name: ${data.firstName} ${data.lastName}`);
-    //     doc.text(`Email: ${data.email}`);
-    //     doc.text(`Phone: ${data.phoneNumber}`);
-    //     // Add more fields as required...
-    //     doc.end();
-    //   });
-    // };
-
     const generatePdfBuffer = async (data) => {
       return new Promise((resolve, reject) => {
         const doc = new PDFDocument({ margin: 30 }); // Add margin for better layout
@@ -166,11 +146,6 @@ const applicationForms = async (req, res) => {
           underline: true,
           color: "blue",
         });
-        // doc.fontSize(12).fillColor("black").text("Shareable URL", {
-        //   link: completeShareUrl,
-        //   underline: true,
-        //   color: "blue",
-        // });
         doc
           .fontSize(15)
           .fillColor("black")
@@ -447,7 +422,7 @@ const applicationForms = async (req, res) => {
             </html>`,
       attachments: [
         {
-          filename: `Application-${firstName}-${lastName}.pdf`,
+          filename: `NBLTLMG-Application-${firstName}-${lastName}.pdf`,
           content: pdfBuffer,
         },
       ],
