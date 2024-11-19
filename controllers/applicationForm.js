@@ -160,7 +160,7 @@ const applicationForms = async (req, res) => {
         doc
           .fontSize(15)
           .fillColor("black")
-          .text("Shareable URL: ", { continued: true });
+          .text("- Shareable URL: ", { continued: true });
         doc.text(`${completeShareUrl}`, {
           link: `${completeShareUrl}`,
           underline: true,
@@ -201,7 +201,7 @@ const applicationForms = async (req, res) => {
           );
         }
         doc.text(`- Why you should be considered: ${data.whyWeConsidered}`);
-
+        doc.moveDown(0.5);
         //Educational Information Section Header
         doc
           .fontSize(25)
@@ -215,7 +215,7 @@ const applicationForms = async (req, res) => {
           .text(`- Medical College Name: ${data.collegeName}`);
         doc.text(`- Graduation Yeare: ${data.graduationYear}`);
         doc.text(`- 1st Professional MBBS Grade: ${data.firstYearGrade}`);
-        doc.text(`- 2nd Professional MBBS Grade: ${data.email}`);
+        doc.text(`- 2nd Professional MBBS Grade: ${data.secondYearGrade}`);
         doc.text(`- 3rd Professional MBBS Grade: ${data.thirdYearGrade}`);
         doc.text(`- Final Professional MBBS Grade: ${data.finalYearGrade}`);
         doc.text(`- Other Qualifications: ${data.otherQualifications}`);
@@ -236,6 +236,7 @@ const applicationForms = async (req, res) => {
           .text(`Step 1:`, { underline: true });
         doc.moveDown(0.5);
         doc.text(`Score: ${data.step1Score} || Attempt: ${data.step1Attempt}`);
+        doc.moveDown(0.5);
         doc
           .fontSize(15)
           .fillColor("black")
@@ -244,6 +245,7 @@ const applicationForms = async (req, res) => {
         doc.text(
           `Score: ${data.step2CKScore} || Attempt: ${data.step2CKAttempt}`
         );
+        doc.moveDown(0.5);
         doc
           .fontSize(15)
           .fillColor("black")
@@ -252,17 +254,20 @@ const applicationForms = async (req, res) => {
         doc.text(
           `Score: ${data.step2CSScore} || Attempt: ${data.step2CSAttempt}`
         );
+        doc.moveDown(0.5);
         doc
           .fontSize(15)
           .fillColor("black")
           .text(`Step 3:`, { underline: true });
         doc.moveDown(0.5);
         doc.text(`Score: ${data.step3Score} || Attempt: ${data.step3Attempt}`);
+        doc.moveDown(0.5);
         doc.text("Character Certificate", {
           link: data.certificateFileUrl,
           underline: true,
           color: "blue",
         });
+        doc.moveDown(0.5);
         doc.text("Bill-1", {
           link: data.billImageUrls[0],
           underline: true,
@@ -278,6 +283,7 @@ const applicationForms = async (req, res) => {
           underline: true,
           color: "blue",
         });
+        doc.moveDown(0.5);
         doc.text(`Electronic Signature: ${data.signature}`);
 
         doc.moveDown();
