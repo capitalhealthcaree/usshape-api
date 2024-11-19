@@ -130,54 +130,194 @@ const applicationForms = async (req, res) => {
     //     doc.end();
     //   });
     // };
-    
+
     const generatePdfBuffer = async (data) => {
       return new Promise((resolve, reject) => {
         const doc = new PDFDocument({ margin: 30 }); // Add margin for better layout
         const chunks = [];
-    
+
         doc.on("data", (chunk) => chunks.push(chunk));
         doc.on("end", () => resolve(Buffer.concat(chunks)));
         doc.on("error", (err) => reject(err));
-    
+
         // Title
-        doc.fontSize(18).text("Application Form", { align: "center" });
+        doc
+          .fontSize(35)
+          .text("Nagy Loan Program for Young Physicians", { align: "center" });
         doc.moveDown();
-    
-        // Section Header
-        doc.fontSize(14).fillColor("#003062").text("Personal Information", { underline: true });
+
+        // Personal Information Section Header
+        doc
+          .fontSize(25)
+          .fillColor("#003062")
+          .text("Personal Information", { underline: true });
         doc.moveDown(0.5);
-    
+
         // Content
-        doc.fontSize(12).fillColor("black").text(`Name: ${data.firstName} ${data.lastName}`);
+        doc.text("Shareable URL", {
+          link: completeShareUrl,
+          underline: true,
+          color: "blue",
+        });
+        doc
+          .fontSize(12)
+          .fillColor("black")
+          .text(`Name: ${data.firstName} ${data.lastName}`);
         doc.text(`Email: ${data.email}`);
         doc.text(`Phone: ${data.phoneNumber}`);
         doc.text(`Date of Birth: ${data.dob}`);
+        doc.text(`Permanent Address: ${data.permanentAddress}`);
+        doc.text(`Temporary Address: ${data.temporaryAddress}`);
+        doc.text(`Father Name: ${data.fatherName}`);
+        doc.text(`Father Occupation: ${data.fatherOccupation}`);
+        doc.text(`Father's Income: ${data.fatherIncome}`);
+        doc.text(`Passport Number: ${data.passportNumber}`);
+        doc.text(`Bank Acc. Number: ${data.bankAccountNumber}`);
+        doc.text(`Swift Code: ${data.swiftCode}`);
+        doc.text(
+          `Have you applied for a loan from any other organization such as your medical college, alumni, or any physician working in the USA or Pakistan? ${data.appliedToOtherOrganization}`
+        );
+        doc.text(
+          `Nationality/Permanent Residency/Work Permit of any country other than Pakistan: ${data.nationalityOtherThanPakistan}`
+        );
+        doc.text(
+          `Have you travelled internationally for personal or professional reasons to attend conferences or to do electives?: ${data.travelledInternationally}`
+        );
+        if (data.travelledInternationally === "Yes") {
+          doc.text(
+            `If "Yes", Please Provide details: ${data.travelledInternationallyDetails}`
+          );
+        }
+        doc.text(`Why you should be considered: ${data.whyWeConsidered}`);
+
         doc.moveDown();
-    
+
         // Draw a line
-        doc.moveTo(doc.x, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
-    
-        // Section Header
-        doc.fontSize(14).fillColor("#003062").text("Educational Information", { underline: true });
+        doc
+          .moveTo(doc.x, doc.y)
+          .lineTo(doc.page.width - doc.page.margins.right, doc.y)
+          .stroke();
         doc.moveDown(0.5);
-    
-        doc.fontSize(12).fillColor("black").text(`College Name: ${data.collegeName}`);
-        doc.text(`Graduation Year: ${data.graduationYear}`);
-        doc.text(`1st Year Grade: ${data.firstYearGrade}`);
+
+        // Section Header
+        doc
+          .fontSize(25)
+          .fillColor("#003062")
+          .text("Educational Information", { underline: true });
+        doc.moveDown(0.5);
+
+        doc
+          .fontSize(12)
+          .fillColor("black")
+          .text(`Medical College Name: ${data.collegeName}`);
+        doc.text(`Graduation Yeare: ${data.graduationYear}`);
+        doc.text(`1st Professional MBBS Grade: ${data.firstYearGrade}`);
+        doc.text(`2nd Professional MBBS Grade: ${data.email}`);
+        doc.text(`3rd Professional MBBS Grade: ${data.thirdYearGrade}`);
+        doc.text(`Final Professional MBBS Grade: ${data.finalYearGrade}`);
+        doc.text(`Other Qualifications: ${data.otherQualifications}`);
+        doc.text(`Awards & Honors: ${data.awardsHonors}`);
+        doc.text(`Email: ${data.email}`);
+
         doc.moveDown();
-    
+
+        // Draw a line
+        doc
+          .moveTo(doc.x, doc.y)
+          .lineTo(doc.page.width - doc.page.margins.right, doc.y)
+          .stroke();
+
+        // Section Header
+        doc
+          .fontSize(25)
+          .fillColor("#003062")
+          .text("USMLE Scores", { underline: true });
+        doc.moveDown(0.5);
+
+        doc.fontSize(15).fillColor("#003062").text(`Step 1:`);
+        doc.text(`Score: ${data.step1Score} || Attempt: ${data.step1Attempt}`);
+        doc.fontSize(15).fillColor("#003062").text(`Step 2 CK:`);
+        doc.text(
+          `Score: ${data.step2CKScore} || Attempt: ${data.step2CKAttempt}`
+        );
+        doc.fontSize(15).fillColor("#003062").text(`Step 2 CS:`);
+        doc.text(
+          `Score: ${data.step2CSScore} || Attempt: ${data.step2CSAttempt}`
+        );
+        doc.fontSize(15).fillColor("#003062").text(`Step 3:`);
+        doc.text(`Score: ${data.step3Score} || Attempt: ${data.step3Attempt}`);
+        doc.text("Character Certificate", {
+          link: data.certificateFileUrl,
+          underline: true,
+          color: "blue",
+        });
+        doc.text("Bill-1", {
+          link: data.billImageUrls[0],
+          underline: true,
+          color: "blue",
+        });
+        doc.text("Bill-2", {
+          link: data.billImageUrls[1],
+          underline: true,
+          color: "blue",
+        });
+        doc.text("Bill-3", {
+          link: data.billImageUrls[2],
+          underline: true,
+          color: "blue",
+        });
+        doc.text(`Electronic Signature: ${data.signature}`);
+
+        doc.moveDown();
+
         // Finalize the PDF
         doc.end();
       });
     };
-    
 
     const pdfBuffer = await generatePdfBuffer({
       firstName,
       lastName,
       email,
       phoneNumber,
+      dob,
+      permanentAddress,
+      temporaryAddress,
+      fatherName,
+      fatherOccupation,
+      fatherIncome,
+      passportNumber,
+      bankAccountNumber,
+      swiftCode,
+      appliedToOtherOrganization,
+      nationalityOtherThanPakistan,
+      travelledInternationally,
+      travelledInternationallyDetails,
+      whyWeConsidered,
+
+      collegeName,
+      graduationYear,
+      firstYearGrade,
+      secondYearGrade,
+      thirdYearGrade,
+      finalYearGrade,
+      otherQualifications,
+      awardsHonors,
+
+      step1Score,
+      step1Attempt,
+      step2CKScore,
+      step2CKAttempt,
+      step2CSScore,
+      step2CSAttempt,
+      step3Score,
+      step3Attempt,
+
+      signature,
+      termsConditions,
+
+      billImageUrls,
+      certificateFileUrl,
     });
 
     // Send emails to both admin and candidate
