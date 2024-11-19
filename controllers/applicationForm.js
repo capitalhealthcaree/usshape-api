@@ -157,7 +157,7 @@ const applicationForms = async (req, res) => {
         doc.moveDown(0.5);
 
         // Content
-        doc.doc
+        doc
           .fontSize(15)
           .fillColor("black")
           .text("Shareable URL: ", { continued: true });
