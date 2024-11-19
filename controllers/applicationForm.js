@@ -145,6 +145,7 @@ const applicationForms = async (req, res) => {
 
         // Title
         doc
+          .font("Helvetica-Bold")
           .fontSize(35)
           .text("Nagy Loan Program for Young Physicians", { align: "center" });
         doc.moveDown();
@@ -157,97 +158,106 @@ const applicationForms = async (req, res) => {
         doc.moveDown(0.5);
 
         // Content
-        doc.text("Shareable URL", {
-          link: completeShareUrl,
+        doc.doc
+          .fontSize(15)
+          .fillColor("black")
+          .text("Shareable URL: ", { continued: true });
+        doc.text(`${completeShareUrl}`, {
+          link: `${completeShareUrl}`,
           underline: true,
           color: "blue",
         });
+        // doc.fontSize(12).fillColor("black").text("Shareable URL", {
+        //   link: completeShareUrl,
+        //   underline: true,
+        //   color: "blue",
+        // });
         doc
-          .fontSize(12)
+          .fontSize(15)
           .fillColor("black")
-          .text(`Name: ${data.firstName} ${data.lastName}`);
-        doc.text(`Email: ${data.email}`);
-        doc.text(`Phone: ${data.phoneNumber}`);
-        doc.text(`Date of Birth: ${data.dob}`);
-        doc.text(`Permanent Address: ${data.permanentAddress}`);
-        doc.text(`Temporary Address: ${data.temporaryAddress}`);
-        doc.text(`Father Name: ${data.fatherName}`);
-        doc.text(`Father Occupation: ${data.fatherOccupation}`);
-        doc.text(`Father's Income: ${data.fatherIncome}`);
-        doc.text(`Passport Number: ${data.passportNumber}`);
-        doc.text(`Bank Acc. Number: ${data.bankAccountNumber}`);
-        doc.text(`Swift Code: ${data.swiftCode}`);
+          .text(`- Name: ${data.firstName} ${data.lastName}`);
+        doc.text(`- Email: ${data.email}`);
+        doc.text(`- Phone: ${data.phoneNumber}`);
+        doc.text(`- Date of Birth: ${data.dob}`);
+        doc.text(`- Permanent Address: ${data.permanentAddress}`);
+        doc.text(`- Temporary Address: ${data.temporaryAddress}`);
+        doc.text(`- Father Name: ${data.fatherName}`);
+        doc.text(`- Father Occupation: ${data.fatherOccupation}`);
+        doc.text(`- Father's Income: ${data.fatherIncome}`);
+        doc.text(`- Passport Number: ${data.passportNumber}`);
+        doc.text(`- Bank Acc. Number: ${data.bankAccountNumber}`);
+        doc.text(`- Swift Code: ${data.swiftCode}`);
         doc.text(
-          `Have you applied for a loan from any other organization such as your medical college, alumni, or any physician working in the USA or Pakistan? ${data.appliedToOtherOrganization}`
+          `- Have you applied for a loan from any other organization such as your medical college, alumni, or any physician working in the USA or Pakistan? ${data.appliedToOtherOrganization}`
         );
         doc.text(
-          `Nationality/Permanent Residency/Work Permit of any country other than Pakistan: ${data.nationalityOtherThanPakistan}`
+          `- Nationality/Permanent Residency/Work Permit of any country other than Pakistan: ${data.nationalityOtherThanPakistan}`
         );
         doc.text(
-          `Have you travelled internationally for personal or professional reasons to attend conferences or to do electives?: ${data.travelledInternationally}`
+          `- Have you travelled internationally for personal or professional reasons to attend conferences or to do electives?: ${data.travelledInternationally}`
         );
         if (data.travelledInternationally === "Yes") {
           doc.text(
-            `If "Yes", Please Provide details: ${data.travelledInternationallyDetails}`
+            `- If "Yes", Please Provide details: ${data.travelledInternationallyDetails}`
           );
         }
-        doc.text(`Why you should be considered: ${data.whyWeConsidered}`);
+        doc.text(`- Why you should be considered: ${data.whyWeConsidered}`);
 
-        doc.moveDown();
-
-        // Draw a line
-        doc
-          .moveTo(doc.x, doc.y)
-          .lineTo(doc.page.width - doc.page.margins.right, doc.y)
-          .stroke();
-        doc.moveDown(0.5);
-
-        // Section Header
+        //Educational Information Section Header
         doc
           .fontSize(25)
           .fillColor("#003062")
           .text("Educational Information", { underline: true });
         doc.moveDown(0.5);
-
+        // Content
         doc
-          .fontSize(12)
+          .fontSize(15)
           .fillColor("black")
-          .text(`Medical College Name: ${data.collegeName}`);
-        doc.text(`Graduation Yeare: ${data.graduationYear}`);
-        doc.text(`1st Professional MBBS Grade: ${data.firstYearGrade}`);
-        doc.text(`2nd Professional MBBS Grade: ${data.email}`);
-        doc.text(`3rd Professional MBBS Grade: ${data.thirdYearGrade}`);
-        doc.text(`Final Professional MBBS Grade: ${data.finalYearGrade}`);
-        doc.text(`Other Qualifications: ${data.otherQualifications}`);
-        doc.text(`Awards & Honors: ${data.awardsHonors}`);
-        doc.text(`Email: ${data.email}`);
+          .text(`- Medical College Name: ${data.collegeName}`);
+        doc.text(`- Graduation Yeare: ${data.graduationYear}`);
+        doc.text(`- 1st Professional MBBS Grade: ${data.firstYearGrade}`);
+        doc.text(`- 2nd Professional MBBS Grade: ${data.email}`);
+        doc.text(`- 3rd Professional MBBS Grade: ${data.thirdYearGrade}`);
+        doc.text(`- Final Professional MBBS Grade: ${data.finalYearGrade}`);
+        doc.text(`- Other Qualifications: ${data.otherQualifications}`);
+        doc.text(`- Awards & Honors: ${data.awardsHonors}`);
 
         doc.moveDown();
 
-        // Draw a line
-        doc
-          .moveTo(doc.x, doc.y)
-          .lineTo(doc.page.width - doc.page.margins.right, doc.y)
-          .stroke();
-
-        // Section Header
+        //USMLE Scores Section Header
         doc
           .fontSize(25)
           .fillColor("#003062")
           .text("USMLE Scores", { underline: true });
         doc.moveDown(0.5);
 
-        doc.fontSize(15).fillColor("#003062").text(`Step 1:`);
+        doc
+          .fontSize(14)
+          .fillColor("black")
+          .text(`Step 1:`, { underline: true });
+        doc.moveDown(0.5);
         doc.text(`Score: ${data.step1Score} || Attempt: ${data.step1Attempt}`);
-        doc.fontSize(15).fillColor("#003062").text(`Step 2 CK:`);
+        doc
+          .fontSize(15)
+          .fillColor("black")
+          .text(`Step 2 CK:`, { underline: true });
+        doc.moveDown(0.5);
         doc.text(
           `Score: ${data.step2CKScore} || Attempt: ${data.step2CKAttempt}`
         );
-        doc.fontSize(15).fillColor("#003062").text(`Step 2 CS:`);
+        doc
+          .fontSize(15)
+          .fillColor("black")
+          .text(`Step 2 CS:`, { underline: true });
+        doc.moveDown(0.5);
         doc.text(
           `Score: ${data.step2CSScore} || Attempt: ${data.step2CSAttempt}`
         );
-        doc.fontSize(15).fillColor("#003062").text(`Step 3:`);
+        doc
+          .fontSize(15)
+          .fillColor("black")
+          .text(`Step 3:`, { underline: true });
+        doc.moveDown(0.5);
         doc.text(`Score: ${data.step3Score} || Attempt: ${data.step3Attempt}`);
         doc.text("Character Certificate", {
           link: data.certificateFileUrl,
@@ -333,8 +343,6 @@ const applicationForms = async (req, res) => {
         pass: "C%nt@cT.org",
       },
     });
-
-
 
     const mailOptionsAdmin = {
       from: "contact@usshape.org",
