@@ -145,7 +145,6 @@ const applicationForms = async (req, res) => {
 
         // Title
         doc
-          .font("Helvetica-Bold")
           .fontSize(35)
           .text("Nagy Loan Program for Young Physicians", { align: "center" });
         doc.moveDown();
