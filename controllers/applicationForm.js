@@ -109,6 +109,26 @@ const applicationForms = async (req, res) => {
       url: shareUrl,
     });
 
+    // Generate the PDF
+    const generatePdf = (data) => {
+      const doc = new PDFDocument();
+      const pdfBuffer = [];
+
+      doc.on("data", (chunk) => pdfBuffer.push(chunk));
+      doc.on("end", () => {});
+
+      doc.fontSize(18).text(`Application Form`, { align: "center" });
+      doc.moveDown();
+      doc.fontSize(12).text(`Name: ${data.firstName} ${data.lastName}`);
+      doc.text(`Email: ${data.email}`);
+      // Add other form fields...
+      doc.end();
+
+      return Buffer.concat(pdfBuffer);
+    };
+
+    const pdfBuffer = generatePdf({ firstName, lastName, email });
+
     // Send emails to both admin and candidate
     const transporter = nodemailer.createTransport({
       host: "smtp.office365.com",
@@ -219,6 +239,12 @@ const applicationForms = async (req, res) => {
               <p><b>Electronic Signature :</b> ${signature}</p>
               </body>
             </html>`,
+      attachments: [
+        {
+          filename: `Application-${firstName}-${lastName}.pdf`,
+          content: pdfBuffer,
+        },
+      ],
     };
 
     const mailOptionsCandidate = {

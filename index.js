@@ -44,5 +44,5 @@ app.use("/", routes);
 
 // Server
 app.listen(appPort, () => {
-  console.log(`Server running at http://localhost/:${appPort}/`);
+  console.log(`Server running at http://localhost:${appPort}/`);
 });
