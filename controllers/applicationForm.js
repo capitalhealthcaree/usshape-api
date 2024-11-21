@@ -307,7 +307,7 @@ const applicationForms = async (req, res) => {
         },
       ],
     };
-
+//..
     const mailOptionsCandidate = {
       from: "contact@usshape.org",
       to: email,
