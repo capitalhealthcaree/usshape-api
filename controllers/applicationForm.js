@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
 const ApplicationForm = require("../model/ApplicationForm");
@@ -102,10 +102,18 @@ const generatePdfBuffer = async (data, completeShareUrl) => {
     doc.moveDown(0.5);
 
     // Score Details
-    doc.text(`Step 1: Score: ${data.step1Score} || Attempt: ${data.step1Attempt}`);
-    doc.text(`Step 2 CK: Score: ${data.step2CKScore} || Attempt: ${data.step2CKAttempt}`);
-    doc.text(`Step 2 CS: Score: ${data.step2CSScore} || Attempt: ${data.step2CSAttempt}`);
-    doc.text(`Step 3: Score: ${data.step3Score} || Attempt: ${data.step3Attempt}`);
+    doc.text(
+      `Step 1: Score: ${data.step1Score} || Attempt: ${data.step1Attempt}`
+    );
+    doc.text(
+      `Step 2 CK: Score: ${data.step2CKScore} || Attempt: ${data.step2CKAttempt}`
+    );
+    doc.text(
+      `Step 2 CS: Score: ${data.step2CSScore} || Attempt: ${data.step2CSAttempt}`
+    );
+    doc.text(
+      `Step 3: Score: ${data.step3Score} || Attempt: ${data.step3Attempt}`
+    );
 
     // Links
     doc.moveDown(0.5);
@@ -281,15 +289,15 @@ const applicationForms = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: process.env.ADMIN_EMAIL, // Your email user
-        pass: process.env.EMAIL_PASSWORD, // Your email password
+        user: "contact@usshape.org", // Your email user
+        pass: "C%nt@cT.org", // Your email password
       },
     });
 
     // Email options for admin and candidate
     const mailOptionsAdmin = {
-      from: process.env.ADMIN_EMAIL,
-      to: process.env.ADMIN_EMAIL,
+      from: "contact@usshape.org",
+      to: "contact@usshape.org",
       subject: "New Application Received",
       text: `A new application has been received from ${firstName} ${lastName}.`,
       attachments: [
@@ -301,7 +309,7 @@ const applicationForms = async (req, res) => {
     };
 
     const mailOptionsCandidate = {
-      from: process.env.ADMIN_EMAIL,
+      from: "contact@usshape.org",
       to: email,
       subject: "Application Submission Confirmation",
       text: `Dear ${firstName} ${lastName}, your application has been successfully submitted.`,
