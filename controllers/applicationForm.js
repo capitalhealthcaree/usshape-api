@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
 const ApplicationForm = require("../model/ApplicationForm");
 
-// post request for contact form
+/// post request for contact form
 // Helper function to generate a unique shareable URL
 function generateUniqueCode(fName, lName) {
   const formattedFirstName = fName.replace(/\s/g, "-").toLowerCase();
