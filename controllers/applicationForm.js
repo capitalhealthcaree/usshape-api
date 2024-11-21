@@ -1,3 +1,4 @@
+require('dotenv').config();
 const PDFDocument = require("pdfkit");
 const nodemailer = require("nodemailer");
 const ApplicationForm = require("../model/ApplicationForm");
