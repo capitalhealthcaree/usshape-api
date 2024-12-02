@@ -240,7 +240,13 @@ const applicationForms = async (req, res) => {
       url: shareUrl,
     });
 
-    // Generate PDF
+    // Respond immediately to avoid timeout
+    res.status(200).json({
+      data: formData,
+      message: "Your application submitted successfully.",
+    });
+
+    // Handle PDF generation and email sending in the background
     const pdfBuffer = await generatePdfBuffer(
       {
         firstName,
@@ -307,7 +313,7 @@ const applicationForms = async (req, res) => {
         },
       ],
     };
-//..
+
     const mailOptionsCandidate = {
       from: "contact@usshape.org",
       to: email,
@@ -315,27 +321,204 @@ const applicationForms = async (req, res) => {
       text: `Dear ${firstName} ${lastName}, your application has been successfully submitted.`,
     };
 
-    // Send emails in parallel
-    const [adminEmailStatus, candidateEmailStatus] = await Promise.all([
+    // Send emails asynchronously
+    Promise.all([
       sendEmail(transporter, mailOptionsAdmin),
       sendEmail(transporter, mailOptionsCandidate),
-    ]);
-
-    if (!adminEmailStatus || !candidateEmailStatus) {
-      throw new Error("Failed to send confirmation emails");
-    }
-
-    // Respond with success message
-    res.status(200).json({
-      data: formData,
-      message: "Your application submitted successfully.",
-    });
+    ]).catch((err) => console.error("Error in sending emails:", err));
   } catch (error) {
     console.error("Error occurred:", error);
-    res.status(500).json({ message: "An error occurred. Please try again." });
   }
 };
 
+
+// const applicationForms = async (req, res) => {
+//   const {
+//     firstName,
+//     lastName,
+//     email,
+//     phoneNumber,
+//     dob,
+//     permanentAddress,
+//     temporaryAddress,
+//     fatherName,
+//     fatherOccupation,
+//     fatherIncome,
+//     passportNumber,
+//     bankAccountNumber,
+//     swiftCode,
+//     appliedToOtherOrganization,
+//     nationalityOtherThanPakistan,
+//     travelledInternationally,
+//     travelledInternationallyDetails,
+//     whyWeConsidered,
+//     collegeName,
+//     graduationYear,
+//     firstYearGrade,
+//     secondYearGrade,
+//     thirdYearGrade,
+//     finalYearGrade,
+//     otherQualifications,
+//     awardsHonors,
+//     step1Score,
+//     step1Attempt,
+//     step2CKScore,
+//     step2CKAttempt,
+//     step2CSScore,
+//     step2CSAttempt,
+//     step3Score,
+//     step3Attempt,
+//     signature,
+//     termsConditions,
+//     billImageUrls,
+//     certificateFileUrl,
+//   } = req.body;
+
+//   // Generate a shareable URL
+//   const shareUrl = generateUniqueCode(firstName, lastName);
+//   const mainUrl = "https://usshape.org/share-form/";
+//   const completeShareUrl = `${mainUrl}${shareUrl}`;
+
+//   try {
+//     // Store the form data in the database
+//     const formData = await ApplicationForm.create({
+//       firstName,
+//       lastName,
+//       email,
+//       phoneNumber,
+//       dob,
+//       permanentAddress,
+//       temporaryAddress,
+//       fatherName,
+//       fatherOccupation,
+//       fatherIncome,
+//       passportNumber,
+//       bankAccountNumber,
+//       swiftCode,
+//       appliedToOtherOrganization,
+//       nationalityOtherThanPakistan,
+//       travelledInternationally,
+//       travelledInternationallyDetails,
+//       whyWeConsidered,
+//       collegeName,
+//       graduationYear,
+//       firstYearGrade,
+//       secondYearGrade,
+//       thirdYearGrade,
+//       finalYearGrade,
+//       otherQualifications,
+//       awardsHonors,
+//       step1Score,
+//       step1Attempt,
+//       step2CKScore,
+//       step2CKAttempt,
+//       step2CSScore,
+//       step2CSAttempt,
+//       step3Score,
+//       step3Attempt,
+//       signature,
+//       termsConditions,
+//       billImageUrls,
+//       certificateFileUrl,
+//       url: shareUrl,
+//     });
+
+//     // Generate PDF
+//     const pdfBuffer = await generatePdfBuffer(
+//       {
+//         firstName,
+//         lastName,
+//         email,
+//         phoneNumber,
+//         dob,
+//         permanentAddress,
+//         temporaryAddress,
+//         fatherName,
+//         fatherOccupation,
+//         fatherIncome,
+//         passportNumber,
+//         bankAccountNumber,
+//         swiftCode,
+//         appliedToOtherOrganization,
+//         nationalityOtherThanPakistan,
+//         travelledInternationally,
+//         travelledInternationallyDetails,
+//         whyWeConsidered,
+//         collegeName,
+//         graduationYear,
+//         firstYearGrade,
+//         secondYearGrade,
+//         thirdYearGrade,
+//         finalYearGrade,
+//         otherQualifications,
+//         awardsHonors,
+//         step1Score,
+//         step1Attempt,
+//         step2CKScore,
+//         step2CKAttempt,
+//         step2CSScore,
+//         step2CSAttempt,
+//         step3Score,
+//         step3Attempt,
+//         signature,
+//         termsConditions,
+//         billImageUrls,
+//         certificateFileUrl,
+//       },
+//       completeShareUrl
+//     );
+
+//     // Email configuration
+//     const transporter = nodemailer.createTransport({
+//       service: "Gmail",
+//       auth: {
+//         user: "contact@usshape.org", // Your email user
+//         pass: "C%nt@cT.org", // Your email password
+//       },
+//     });
+
+//     // Email options for admin and candidate
+//     const mailOptionsAdmin = {
+//       from: "contact@usshape.org",
+//       to: "contact@usshape.org",
+//       subject: "New Application Received",
+//       text: `A new application has been received from ${firstName} ${lastName}.`,
+//       attachments: [
+//         {
+//           filename: `${firstName}_${lastName}_Application.pdf`,
+//           content: pdfBuffer,
+//         },
+//       ],
+//     };
+// //..
+//     const mailOptionsCandidate = {
+//       from: "contact@usshape.org",
+//       to: email,
+//       subject: "Application Submission Confirmation",
+//       text: `Dear ${firstName} ${lastName}, your application has been successfully submitted.`,
+//     };
+
+//     // Send emails in parallel
+//     const [adminEmailStatus, candidateEmailStatus] = await Promise.all([
+//       sendEmail(transporter, mailOptionsAdmin),
+//       sendEmail(transporter, mailOptionsCandidate),
+//     ]);
+
+//     if (!adminEmailStatus || !candidateEmailStatus) {
+//       throw new Error("Failed to send confirmation emails");
+//     }
+
+//     // Respond with success message
+//     res.status(200).json({
+//       data: formData,
+//       message: "Your application submitted successfully.",
+//     });
+//   } catch (error) {
+//     console.error("Error occurred:", error);
+//     res.status(500).json({ message: "An error occurred. Please try again." });
+//   }
+// };
+//
 //******************************************** get contact form by pagination **************************************
 const getApplicationFormsByPagination = async (req, res) => {
   try {
