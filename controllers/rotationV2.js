@@ -141,4 +141,13 @@ const GetReservedRotation = async (req, res) => {
   }
 };
 
-module.exports = { CreateRotationForm, GetReservedRotation };
+const getAllRotationV2 = async (req, res) => {
+  let data = await RotationV2.find();
+  if (data) {
+    res.status(200).json({ data });
+  } else {
+    res.status(500).json({ err: "getting some error" });
+  }
+};
+
+module.exports = { CreateRotationForm, GetReservedRotation,getAllRotationV2 };

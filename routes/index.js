@@ -36,6 +36,8 @@ router.get("/rotation/getAll", rotationForm.GetReservedRotation);
 // for Rotation Reservation Form V2 version2 Routes
 router.post("/createRotationForm", rotationV2.CreateRotationForm);
 router.get("/getReservedRotation", rotationV2.GetReservedRotation);
+router.get("/getAllRotationV2", rotationV2.getAllRotationV2);
+
 
 // for Blogs Routes
 router.get("/blog/getAll", blogs.getAllBlogs);
