@@ -4,6 +4,8 @@ const news = require("../controllers/news");
 const contactForm = require("../controllers/contactForm");
 const applicationForm = require("../controllers/applicationForm");
 const rotationForm = require("../controllers/rotation");
+const rotationV2 = require("../controllers/rotationV2");
+
 const paypalPayment = require("../controllers/paypalPayment");
 
 const router = express.Router();
@@ -31,6 +33,9 @@ router.post("/create/rotationFormWithPaypal", rotationForm.RotationForms);
 router.get("/personsrotation/getByName", rotationForm.GetRotationBySlug);
 router.get("/rotation/getAll", rotationForm.GetReservedRotation);
 
+// for Rotation Reservation Form V2 version2 Routes
+router.post("/createRotationForm", rotationV2.CreateRotationForm);
+router.get("/getReservedRotation", rotationV2.GetReservedRotation);
 
 // for Blogs Routes
 router.get("/blog/getAll", blogs.getAllBlogs);
